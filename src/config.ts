@@ -1,7 +1,7 @@
 export default {
    client: {
-      id: 'your-client-id',
-      secret: 'your-client-secret',
+      id: process.env.ID as string,
+      secret: process.env.SECRET as string,
       token: process.env.TOKEN as string
    },
    commands: {
@@ -11,6 +11,16 @@ export default {
       },
       prefixCommands: {
          enabled: true
+      }
+   },
+   database: {
+      enabled: false,
+      type: 'mongodb' as 'mongodb' | 'sqlite' | 'mysql' | 'postgres',
+      uri: 'mongodb://localhost:27017',
+      database: 'oceanic',
+      options: {
+         useNewUrlParser: true,
+         useUnifiedTopology: true
       }
    }
 }

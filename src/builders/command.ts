@@ -15,16 +15,22 @@ interface CommandOptions {
   name: string;
   description: string;
   options?: CommandOption[];
+  aliases?: string[];
+  run: (...args: any) => void;
 }
 
 export default class CommandBuilder implements CommandOptions {
     name: string;
     description: string;
     options?: CommandOption[];
+    aliases?: string[];
+    run: (...args: any) => void;
 
     constructor(data: CommandOptions) {
         this.name = data.name
         this.description = data.description
         this.options = data.options
+        this.aliases = data.aliases
+        this.run = data.run
     }
 }

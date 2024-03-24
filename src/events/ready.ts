@@ -1,9 +1,9 @@
 import EventBuilder from "../builders/event.js";
-import { Client } from "oceanic.js";
+import ClientBuilder from "../builders/client.js";
 export default new EventBuilder({
     name: "ready",
     once: true,
-    run: async (client: Client) => {
-        console.log(`Logged in as ${client.user.tag}`);
+    run: async (client: ClientBuilder) => {
+        client.logger.info(`[CLIENT] Logado em ${client.user.tag}`);
     }
 })
