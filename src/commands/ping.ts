@@ -5,6 +5,11 @@ export default new CommandBuilder({
     description: "Ping command",
     aliases: ["pong"],
     run: async (ctx: CommandContext) => {
-        await ctx.reply("Pong!")
+        const embed = new ctx.client.embed();
+        embed.setTitle("Pong!")
+        embed.setDescription(`Latência: ${(await ctx.client.rest.getGateway()).url}ms`)
+        await ctx.reply('', {
+            embeds: [embed.build()]
+        })
     }
 })

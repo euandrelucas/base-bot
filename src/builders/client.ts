@@ -1,6 +1,7 @@
 import { Client, Collection, ClientOptions } from "oceanic.js"
 import CommandBuilder from "./command.js"
 import logger from "../structures/logger.js"
+import EmbedBuilder from "./embed.js"
 import config from "../config.js"
 import path from "node:path"
 import fs from "node:fs"
@@ -9,6 +10,7 @@ export default class ClientBuilder extends Client {
     commands = new Collection()
     aliases = new Collection()
     events = new Collection()
+    embed = EmbedBuilder
     logger = logger
     config = config
 

@@ -23,7 +23,7 @@ export default class CommandContext {
     async reply(content: string, options?: CreateMessageOptions) {
         if (this.message instanceof Message) {
             const conteudo = content !== null ? content : undefined
-            this.message.channel?.createMessage({
+            return this.message.channel?.createMessage({
                 messageReference: {
                     channelID: this.message.channel?.id,
                     guildID: this.message.guild?.id,
@@ -35,7 +35,7 @@ export default class CommandContext {
             })
         } else if (this.message instanceof Interaction) {
             if (this.message.isCommandInteraction()) {
-                this.message.reply({
+                return this.message.reply({
                     content: content,
                     ...options
                 })
@@ -45,13 +45,13 @@ export default class CommandContext {
 
     async send(content: string, options?: CreateMessageOptions) {
         if (this.message instanceof Message) {
-            this.message.channel?.createMessage({
+            return this.message.channel?.createMessage({
                 content: content,
                 ...options
             })
         } else if (this.message instanceof Interaction) {
             if (this.message.isCommandInteraction()) {
-                this.message.reply({
+                return this.message.reply({
                     content: content,
                     ...options
                 })
