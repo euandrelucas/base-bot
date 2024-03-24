@@ -1,0 +1,32 @@
+{
+  "type": "module",
+  "name": "@adgdevelopment/base",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node .",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "bundle": "npm run build && npm start"
+  },
+  "keywords": [
+    "oceanic.js",
+    "discord"
+  ],
+  "author": "euandrelucas",
+  "license": "ISC",
+  "dependencies": {
+    "discord-api-types": "^0.37.61",
+    "dotenv": "^16.4.5",
+    "oceanic.js": "^1.10.0",
+    "prism-media": "^1.3.5",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.3",
+    "undici-types": "^5.26.5",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "typescript-eslint": "^7.3.1"
+  }
+}
