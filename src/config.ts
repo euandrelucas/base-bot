@@ -3,10 +3,12 @@ export default {
       id: process.env.ID as string,
       secret: process.env.SECRET as string,
       token: process.env.TOKEN as string,
-      bypassNsfw: [] as string[]
+      bypassNsfw: ['717766639260532826'] as string[],
+      developers: ['717766639260532826'] as string[]
    },
    commands: {
       prefixes: ['!', '?', '%'],
+      failMessage: false,
       slashCommands: {
          enabled: true
       },

@@ -5,6 +5,7 @@ export default new CommandBuilder({
     name: "ping",
     description: "Ping command",
     aliases: ["pong"],
+    enabled: false,
     run: async (ctx: CommandContext) => {
         const embed = new ctx.client.embed();
         embed.setTitle("Pong!")

@@ -23,6 +23,7 @@ export default new EventBuilder({
             message: message,
             client: client
         })
+        if (!command.enabled) return ctx.reply(`:x: ${message.author.mention} **|** Este comando está desativado.`)
         if (command.nsfw && !message.channel?.nsfw && !ctx.client.config.client.bypassNsfw.includes(message.author.id)) return ctx.reply(`:x: ${message.author.mention} **|** Este comando só pode ser executado em canais NSFW.`)
         return command.run(ctx)
     }
