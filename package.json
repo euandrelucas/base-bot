@@ -16,6 +16,7 @@
   "author": "euandrelucas",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.8",
     "discord-api-types": "^0.37.61",
     "dotenv": "^16.4.5",
     "oceanic.js": "^1.10.0",

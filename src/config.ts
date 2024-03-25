@@ -2,7 +2,8 @@ export default {
    client: {
       id: process.env.ID as string,
       secret: process.env.SECRET as string,
-      token: process.env.TOKEN as string
+      token: process.env.TOKEN as string,
+      bypassNsfw: [] as string[]
    },
    commands: {
       prefixes: ['!', '?', '%'],

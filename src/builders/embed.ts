@@ -63,6 +63,10 @@ export default class EmbedBuilder implements EmbedOptions {
     }
 
     setColor(color: string) {
+        if (color.toLocaleLowerCase() === 'random') {
+            this.color = Math.floor(Math.random() * (0xFFFFFF + 1))
+            return this
+        }
         const convertColor = parseInt(color.replace("#", ""), 16)
         if (colorList[color.toUpperCase() as keyof typeof colorList]) {
             this.color = Number(colorList[color.toUpperCase() as keyof typeof colorList])

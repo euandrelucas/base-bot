@@ -16,6 +16,8 @@ interface CommandOptions {
   description: string;
   options?: CommandOption[];
   aliases?: string[];
+  nsfw?: boolean;
+  developer?: boolean;
   run: (...args: any) => void;
 }
 
@@ -24,6 +26,8 @@ export default class CommandBuilder implements CommandOptions {
     description: string;
     options?: CommandOption[];
     aliases?: string[];
+    nsfw?: boolean;
+    developer?: boolean;
     run: (...args: any) => void;
 
     constructor(data: CommandOptions) {
@@ -31,6 +35,8 @@ export default class CommandBuilder implements CommandOptions {
         this.description = data.description
         this.options = data.options
         this.aliases = data.aliases
+        this.nsfw = data.nsfw
+        this.developer = data.developer
         this.run = data.run
     }
 }
