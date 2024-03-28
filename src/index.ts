@@ -9,10 +9,11 @@ const client = new ClientBuilder(config.client.token, {
     },
     gateway: {
         intents: ['ALL'],
-    }
+    },
 });
 
 client.connect().then(async () => {
+    await client.restMode(true);
     await client.loadEvents();
     await client.loadCommands();
 });

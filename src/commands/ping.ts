@@ -1,11 +1,11 @@
 import CommandBuilder from "../builders/command.js";
 import CommandContext from "../structures/commandContext.js";
-import { Message } from "oceanic.js";
+import { MessageInteractionResponse, Message } from "oceanic.js";
 export default new CommandBuilder({
     name: "ping",
     description: "Ping command",
     aliases: ["pong"],
-    enabled: false,
+    enabled: true,
     run: async (ctx: CommandContext) => {
         const embed = new ctx.client.embed();
         embed.setTitle("Pong!")
@@ -19,7 +19,7 @@ export default new CommandBuilder({
                 const messageLatency = msg.createdAt.getTime() - ctx.message.createdAt.getTime();
                 const apiLatency = ctx.client.shards.get(0)?.latency;
                 embed.setDescription(`Ping da API: **${apiLatency}ms**\nPing de mensagem: **${messageLatency}ms**`)
-                await msg.edit({
+                return ctx.edit(msg, '', {
                     embeds: [embed.build()]
                 })
             }

@@ -1,4 +1,4 @@
-import { Client, Collection, ClientOptions } from "oceanic.js"
+import { Client, Collection, ClientOptions, CreateApplicationCommandOptions } from "oceanic.js"
 import axios, { AxiosRequestConfig } from "axios"
 import logger from "../structures/logger.js"
 import CommandBuilder from "./command.js"
@@ -27,7 +27,6 @@ export default class ClientBuilder extends Client {
     async loadCommands() {
         const commandFiles = fs.readdirSync('./dist/commands').filter(file => file.endsWith(".js"))
         const subFolders = fs.readdirSync('./dist/commands').filter(file => fs.statSync(path.join('./dist/commands', file)).isDirectory())
-        // Load commands in subfolders
         for (const folder of subFolders) {
             const subCommandFiles = fs.readdirSync(`./dist/commands/${folder}`).filter(file => file.endsWith(".js"))
             for (const file of subCommandFiles) {
@@ -46,6 +45,20 @@ export default class ClientBuilder extends Client {
                 this.aliases.set(alias, command.default.name)
             })
             this.logger.info(`[COMANDOS] Comando ${command.default.name} carregado!`)
+        }
+        if (config.commands.slashCommands.enabled) {
+            const commands: CommandBuilder[] = this.commands.map((command: any) => command.toJSON())
+            const slashCommands: CreateApplicationCommandOptions[] = commands.map((command: CommandBuilder) => {
+                return {
+                    name: command.name,
+                    description: command.description,
+                    options: command.options || [],
+                    type: 1,
+                    nsfw: command.nsfw,
+                }
+            })
+            await this.application.bulkEditGlobalCommands(slashCommands)
+            this.logger.info(`[COMANDOS] Comandos de slash carregados!`)
         }
     }
 

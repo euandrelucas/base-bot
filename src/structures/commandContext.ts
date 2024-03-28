@@ -58,4 +58,20 @@ export default class CommandContext {
             }
         }
     }
+
+    async edit(message: Message | Interaction, content: string, options?: CreateMessageOptions) {
+        if (message instanceof Message) {
+            return message.edit({
+                content: content,
+                ...options
+            })
+        } else if (message instanceof Interaction) {
+            if (message.isCommandInteraction()) {
+                return message.editOriginal({
+                    content: content,
+                    ...options
+                })
+            }
+        }
+    }
 }

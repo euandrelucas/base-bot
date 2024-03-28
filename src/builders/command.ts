@@ -42,4 +42,16 @@ export default class CommandBuilder implements CommandOptions {
         this.enabled = data.enabled
         this.run = data.run
     }
+
+    toJSON() {
+        return {
+            name: this.name,
+            description: this.description,
+            options: this.options,
+            aliases: this.aliases,
+            nsfw: this.nsfw,
+            developer: this.developer,
+            enabled: this.enabled
+        }
+    }
 }

@@ -4,7 +4,8 @@ export default {
       secret: process.env.SECRET as string,
       token: process.env.TOKEN as string,
       bypassNsfw: ['717766639260532826'] as string[],
-      developers: ['717766639260532826'] as string[]
+      developers: ['717766639260532826'] as string[],
+      guilds: ['993194961895956521'] as string[]
    },
    commands: {
       prefixes: ['!', '?', '%'],
@@ -25,5 +26,12 @@ export default {
          useNewUrlParser: true,
          useUnifiedTopology: true
       }
-   }
+   },
+   botlists: {
+      enabled: true as boolean,
+      topgg: {
+         enabled: true,
+         token: process.env.TOPGG as string
+      }
+   },
 }
