@@ -28,6 +28,7 @@ export default class ClientBuilder extends Client {
         const commandFiles = fs.readdirSync('./dist/commands').filter(file => file.endsWith(".js"))
         const subFolders = fs.readdirSync('./dist/commands').filter(file => fs.statSync(path.join('./dist/commands', file)).isDirectory())
         for (const folder of subFolders) {
+            const startDate = new Date()
             const subCommandFiles = fs.readdirSync(`./dist/commands/${folder}`).filter(file => file.endsWith(".js"))
             for (const file of subCommandFiles) {
                 const command = await import(`../commands/${folder}/${file}`)
@@ -35,16 +36,21 @@ export default class ClientBuilder extends Client {
                 command.default.aliases.forEach((alias: string) => {
                     this.aliases.set(alias, command.default.name)
                 })
-                this.logger.info(`[COMANDOS] Comando ${command.default.name} carregado!`)
+                const endDate = new Date()
+                const time = endDate.getTime() - startDate.getTime()
+                this.logger.info(`[COMANDOS] Comando ${command.default.name} carregado! ~ ${time}ms`)
             }
         }
         for (const file of commandFiles) {
+            const startDate = new Date()
             const command = await import('../commands/' + file)
             this.commands.set(command.default.name, command.default)
             command.default.aliases.forEach((alias: string) => {
                 this.aliases.set(alias, command.default.name)
             })
-            this.logger.info(`[COMANDOS] Comando ${command.default.name} carregado!`)
+            const endDate = new Date()
+            const time = endDate.getTime() - startDate.getTime()
+            this.logger.info(`[COMANDOS] Comando ${command.default.name} carregado! ~ ${time}ms`)
         }
         if (config.commands.slashCommands.enabled) {
             const commands: CommandBuilder[] = this.commands.map((command: any) => command.toJSON())
@@ -65,8 +71,12 @@ export default class ClientBuilder extends Client {
     async loadEvents() {
         const eventFiles = fs.readdirSync('./dist/events').filter(file => file.endsWith(".js"))
         for (const file of eventFiles) {
+            const startDate = new Date()
             const event = await import('../events/' + file)
             this[event.default.once ? "once" : "on"](event.default.name, event.default.run.bind(null, this))
+            const endDate = new Date()
+            const time = endDate.getTime() - startDate.getTime()
+            this.logger.info(`[EVENTOS] Evento ${event.default.name} carregado! ~ ${time}ms`)
         }
     }
 

@@ -14,7 +14,8 @@ export default new EventBuilder({
                 name: command.name,
                 description: command.description,
                 message: interaction,
-                client: client
+                client: client,
+                args: []
             })
             if (!command.enabled) return ctx.reply(`:x: ${interaction.user.mention} **|** Este comando está desativado.`)
             if (command.nsfw && !interaction.channel?.type && !ctx.client.config.client.bypassNsfw.includes(interaction.user.id)) return ctx.reply(`:x: ${interaction.user.mention} **|** Este comando só pode ser executado em canais NSFW.`)

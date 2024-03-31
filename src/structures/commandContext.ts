@@ -1,9 +1,10 @@
-import { Message, Interaction, CreateMessageOptions } from "oceanic.js";
+import { Message, Interaction, CreateMessageOptions, User, AnyChannel, Role } from "oceanic.js";
 import ClientBuilder from "../builders/client.js";
 interface ContextOptions {
     name: string;
     description: string;
     message: Message | Interaction;
+    args: string[] | User[] | number[] | AnyChannel[] | Role[];
     client: ClientBuilder;
 }
 
@@ -12,15 +13,17 @@ export default class CommandContext {
     description: string;
     message: Message | Interaction;
     client: ClientBuilder;
+    args: string[] | User[] | number[] | AnyChannel[] | Role[];
 
     constructor(data: ContextOptions) {
         this.name = data.name
         this.description = data.description
         this.message = data.message
         this.client = data.client
+        this.args = data.args || []
     }
 
-    async reply(content: string, options?: CreateMessageOptions) {
+    async reply(content: string, options?: CreateMessageOptions): Promise<Message | undefined> {
         if (this.message instanceof Message) {
             const conteudo = content !== null ? content : undefined
             return this.message.channel?.createMessage({
@@ -32,30 +35,36 @@ export default class CommandContext {
                 },
                 content: conteudo,
                 ...options
-            })
+            }) as Promise<Message>
         } else if (this.message instanceof Interaction) {
             if (this.message.isCommandInteraction()) {
-                return this.message.reply({
+                const reply = await this.message.reply({
                     content: content,
                     ...options
                 })
+                return reply.getMessage() as Promise<Message>
             }
+        } else if (this === undefined) {
+            throw new Error("Context is undefined")
         }
     }
 
-    async send(content: string, options?: CreateMessageOptions) {
+    async send(content: string, options?: CreateMessageOptions): Promise<Message | undefined> {
         if (this.message instanceof Message) {
             return this.message.channel?.createMessage({
                 content: content,
                 ...options
-            })
+            }) as Promise<Message>
         } else if (this.message instanceof Interaction) {
             if (this.message.isCommandInteraction()) {
-                return this.message.reply({
+                const reply = await this.message.reply({
                     content: content,
                     ...options
                 })
+                return reply.getMessage() as Promise<Message>
             }
+        } else if (this === undefined) {
+            throw new Error("Context is undefined")
         }
     }
 
