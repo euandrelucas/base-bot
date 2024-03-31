@@ -6,17 +6,8 @@ export default new CommandBuilder({
     description: "Ping command",
     aliases: ["pong"],
     enabled: true,
-    options: [
-        {
-            name: 'teste',
-            type: ApplicationCommandOptionTypes.USER,
-            description: 'Teste',
-            required: true
-        }
-    ],
+    options: [],
     run: async (ctx: CommandContext) => {
-        console.log(ctx.args)
-        console.log(ctx.args[0])
         const embed = new ctx.client.embed();
         embed.setTitle("Pong!")
         embed.setDescription(`Calculando a latência...`)

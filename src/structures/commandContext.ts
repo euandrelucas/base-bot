@@ -4,7 +4,7 @@ interface ContextOptions {
     name: string;
     description: string;
     message: Message | Interaction;
-    args: string[] | User[] | number[] | AnyChannel[] | Role[];
+    args: User[] | number[] | AnyChannel[] | Role[] | string[];
     client: ClientBuilder;
 }
 
@@ -13,7 +13,7 @@ export default class CommandContext {
     description: string;
     message: Message | Interaction;
     client: ClientBuilder;
-    args: string[] | User[] | number[] | AnyChannel[] | Role[];
+    args: User[] | number[] | AnyChannel[] | Role[] | string[];
 
     constructor(data: ContextOptions) {
         this.name = data.name

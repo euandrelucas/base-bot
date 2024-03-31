@@ -17,7 +17,7 @@ export default class ClientBuilder extends Client {
     logger = logger
     config = config
 
-    constructor(token: string, options: ClientOptions) {
+    constructor(token: string, options?: ClientOptions) {
         super({
             auth: "Bot " + token,
             ...options

@@ -36,7 +36,7 @@ export default new EventBuilder({
                 if (option.type === ApplicationCommandOptionTypes.STRING) {
                     const arg = args.shift();
                     if (!arg) return ctx.reply(`:x: ${message.author.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
-                    argumentos.push(arg);
+                    argumentos.push(arg.toString());
                 }
                 if (option.type === ApplicationCommandOptionTypes.USER) {
                     const user = message.mentions.users[0] || await client.users.get(args.shift() as string);
@@ -46,7 +46,7 @@ export default new EventBuilder({
                 if (option.type === ApplicationCommandOptionTypes.INTEGER) {
                     const arg = parseInt(args.shift() as string);
                     if (!arg) return ctx.reply(`:x: ${message.author.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
-                    argumentos.push(arg);
+                    argumentos.push(arg.toString());
                 }
                 if (option.type === ApplicationCommandOptionTypes.CHANNEL) {
                     const channel = message.mentions.channels[0] || await client.getChannel(args.shift() as string);
@@ -59,7 +59,7 @@ export default new EventBuilder({
                     argumentos.push(role);
                 }
             }
-            ctx.args = argumentos.map(arg => arg.toString());
+            ctx.args = argumentos as any;
         }
         return command.run(ctx)
     }
