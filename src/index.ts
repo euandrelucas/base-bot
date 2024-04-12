@@ -13,6 +13,9 @@ const client = new ClientBuilder(config.client.token, {
     },
 });
 
+process.on('uncaughtException', (err) => client.logger.error(`[ERROR] (uncaughtException) ${err}`));
+process.on('unhandledRejection', (err) => client.logger.error(`[ERROR] (unhandledRejection) ${err}`));
+
 client.connect().then(async () => {
     await client.restMode(true);
     await client.loadEvents();

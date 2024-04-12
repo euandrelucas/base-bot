@@ -18,20 +18,42 @@ export default new EventBuilder({
                 args: []
             })
             if (!command.enabled) return ctx.reply(`:x: ${interaction.user.mention} **|** Este comando está desativado.`)
+            if (command.developer && !client.config.client.developers.includes(interaction.user.id)) return ctx.reply(`:x: ${interaction.user.mention} **|** Este comando é restrito para desenvolvedores.`)
             if (command.nsfw && !interaction.channel?.type && !ctx.client.config.client.bypassNsfw.includes(interaction.user.id)) return ctx.reply(`:x: ${interaction.user.mention} **|** Este comando só pode ser executado em canais NSFW.`)
             if (command.options) {
+                const argumentos = []
+                const filtered = command.options.filter(option => option.required === true);
                 const data = interaction.data.options.raw;
-                const options = command.options;
-                const filtered = options.filter(option => option.type !== ApplicationCommandOptionTypes.SUB_COMMAND && option.type !== ApplicationCommandOptionTypes.SUB_COMMAND_GROUP);
-                const args = filtered.map(option => option.value);
-                const argumentos = ctx.args;
-                for (const option of data) {
-                    if (option.type === ApplicationCommandOptionTypes.STRING) {
-                        const arg = args.shift();
-                        if (!arg) return ctx.reply(`:x: ${interaction.user.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
-                        argumentos.push(arg.toString());
+                if (data.length < filtered.length) return ctx.reply(`:x: ${interaction.user.mention} **|** Você não forneceu todos os argumentos necessários.`)
+                if (data.length > filtered.length) return ctx.reply(`:x: ${interaction.user.mention} **|** Você forneceu argumentos demais.`)
+                for (const option of filtered) {
+                    const current = data.find((optionData: any) => optionData.name === option.name);
+                    if (!current) return ctx.reply(`:x: ${interaction.user.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                    if (current.type === ApplicationCommandOptionTypes.STRING) {
+                        if (!current.value) return ctx.reply(`:x: ${interaction.user.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                        argumentos.push(current.value);
+                    }
+                    if (current.type === ApplicationCommandOptionTypes.USER) {
+                        const user = await client.users.get(current.value as string);
+                        if (!user) return ctx.reply(`:x: ${interaction.user.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                        argumentos.push(user);
+                    }
+                    if (current.type === ApplicationCommandOptionTypes.INTEGER) {
+                        if (!current.value) return ctx.reply(`:x: ${interaction.user.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                        argumentos.push(current.value);
+                    }
+                    if (current.type === ApplicationCommandOptionTypes.CHANNEL) {
+                        const channel = await client.getChannel(current.value as string);
+                        if (!channel) return ctx.reply(`:x: ${interaction.user.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                        argumentos.push(channel);
+                    }
+                    if (current.type === ApplicationCommandOptionTypes.ROLE) {
+                        const role = await client.guilds.get(interaction.guildID as string)?.roles.get(current.value as string);
+                        if (!role) return ctx.reply(`:x: ${interaction.user.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                        argumentos.push(role);
                     }
                 }
+                ctx.args = argumentos as any;
             }
             return command.run(ctx)
         }

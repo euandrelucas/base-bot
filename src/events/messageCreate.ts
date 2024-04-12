@@ -25,6 +25,7 @@ export default new EventBuilder({
             args: []
         })
         if (!command.enabled) return ctx.reply(`:x: ${message.author.mention} **|** Este comando está desativado.`)
+        if (command.developer && !client.config.client.developers.includes(message.author.id)) return ctx.reply(`:x: ${message.author.mention} **|** Este comando é restrito para desenvolvedores.`)
         if (command.nsfw && !message.channel?.nsfw && !ctx.client.config.client.bypassNsfw.includes(message.author.id)) return ctx.reply(`:x: ${message.author.mention} **|** Este comando só pode ser executado em canais NSFW.`)
         if (command.options) {
             const options = command.options;
@@ -34,9 +35,16 @@ export default new EventBuilder({
             const requeridos = options.filter(option => option.required === true);
             for (const option of requeridos) {
                 if (option.type === ApplicationCommandOptionTypes.STRING) {
-                    const arg = args.shift();
-                    if (!arg) return ctx.reply(`:x: ${message.author.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
-                    argumentos.push(arg.toString());
+                    if (requeridos.length === 1) {
+                        const arg = args.join(" ");
+                        if (!arg) return ctx.reply(`:x: ${message.author.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                        argumentos.push(arg);
+                    }
+                    if (requeridos.length > 1) {
+                        const current = args.find(arg => arg === option.name);
+                        if (!current) return ctx.reply(`:x: ${message.author.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                        argumentos.push(current);
+                    }
                 }
                 if (option.type === ApplicationCommandOptionTypes.USER) {
                     const user = message.mentions.users[0] || await client.users.get(args.shift() as string);

@@ -2,16 +2,18 @@
 - Base de desenvolvimento para bots do ADG, feito com oceanic.js:
 ## TO-DO:
 [X] Eventos
-[ ] Comandos
+[X] Comandos
 > [x] Mensagem
-> [ ] Interações
+> [X] Interações
+> [X] NSFW
+> [X] Developer
 [ ] Builders
 > [X] Embed Builder
-> [ ] Command Builder
-> [ ] Event Builder
+> [X] Command Builder
+> [X] Event Builder
 > [ ] Component Builder
 [ ] Utils
 > [X] Botlist UPDATER
-> [ ] Collectors
-> [ ] Multi-idioma
+> [X] Collectors
+> [ ] Multi-language
 > [ ] Database (preferencialmente ORM)
