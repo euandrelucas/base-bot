@@ -1,6 +1,7 @@
 import config from "./config.js";
 import ClientBuilder from "./builders/client.js"
 import BotlistUpdater from "./internal/botlists.js";
+import API from "./internal/api.js";
 const client = new ClientBuilder(config.client.token, {
     allowedMentions: {
         repliedUser: false,
@@ -23,5 +24,9 @@ client.connect().then(async () => {
     if (config.botlists.enabled) {
         const botlistUpdater = new BotlistUpdater(client);
         botlistUpdater.start();
+    }
+    if (config.metrics.enabled) {
+        const api = new API(client);
+        api.start();
     }
 });

@@ -6,6 +6,7 @@ import EmbedBuilder from "./embed.js"
 import config from "../config.js"
 import path from "node:path"
 import fs from "node:fs"
+import { error } from "winston"
 
 const { get, post } = axios;
 
@@ -16,6 +17,16 @@ export default class ClientBuilder extends Client {
     embed = EmbedBuilder
     logger = logger
     config = config
+    metrics = {
+        messageCommandsExecuted: 0,
+        interactionCommandsExecuted: 0,
+        messagesReceived: 0,
+        messagesSent: 0,
+        messagesDeleted: 0,
+        messagesEdited: 0,
+        interactionsReceived: 0,
+        errors: 0
+    }
 
     constructor(token: string, options?: ClientOptions) {
         super({

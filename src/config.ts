@@ -34,4 +34,8 @@ export default {
          token: process.env.TOPGG as string
       }
    },
+   metrics: {
+      enabled: true as boolean,
+      port: 3000 as number
+   }
 }

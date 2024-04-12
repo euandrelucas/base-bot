@@ -26,6 +26,7 @@ export default class CommandContext {
     async reply(content: string, options?: CreateMessageOptions): Promise<Message | undefined> {
         if (this.message instanceof Message) {
             const conteudo = content !== null ? content : undefined
+            this.client.metrics.messagesSent++;
             return this.message.channel?.createMessage({
                 messageReference: {
                     channelID: this.message.channel?.id,
@@ -38,6 +39,7 @@ export default class CommandContext {
             }) as Promise<Message>
         } else if (this.message instanceof Interaction) {
             if (this.message.isCommandInteraction()) {
+                this.client.metrics.messagesSent++;
                 const reply = await this.message.reply({
                     content: content,
                     ...options
@@ -57,6 +59,7 @@ export default class CommandContext {
             }) as Promise<Message>
         } else if (this.message instanceof Interaction) {
             if (this.message.isCommandInteraction()) {
+                this.client.metrics.messagesSent++;
                 const reply = await this.message.reply({
                     content: content,
                     ...options
@@ -70,12 +73,14 @@ export default class CommandContext {
 
     async edit(message: Message | Interaction, content: string, options?: CreateMessageOptions) {
         if (message instanceof Message) {
+            this.client.metrics.messagesEdited++;
             return message.edit({
                 content: content,
                 ...options
             })
         } else if (message instanceof Interaction) {
             if (message.isCommandInteraction()) {
+                this.client.metrics.messagesEdited++;
                 return message.editOriginal({
                     content: content,
                     ...options

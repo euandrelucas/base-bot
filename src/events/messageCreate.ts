@@ -6,6 +6,7 @@ export default new EventBuilder({
     name: "messageCreate",
     once: false,
     run: async (client: ClientBuilder, message: Message) => {
+        client.metrics.messagesReceived++;
         const prefixes = client.config.commands.prefixes;
         if (message.channel?.type !== ChannelTypes.GUILD_TEXT && message.channel?.type !== ChannelTypes.GUILD_ANNOUNCEMENT) return;
         if (!client.config.commands.prefixCommands.enabled) return;
@@ -69,6 +70,7 @@ export default new EventBuilder({
             }
             ctx.args = argumentos as any;
         }
+        client.metrics.messageCommandsExecuted++;
         return command.run(ctx)
     }
 })

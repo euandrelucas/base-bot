@@ -55,6 +55,7 @@ export default new EventBuilder({
                 }
                 ctx.args = argumentos as any;
             }
+            client.metrics.interactionCommandsExecuted++;
             return command.run(ctx)
         }
     }
