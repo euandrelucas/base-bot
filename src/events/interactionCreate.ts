@@ -24,10 +24,11 @@ export default new EventBuilder({
                 const options = command.options;
                 const filtered = options.filter(option => option.type !== ApplicationCommandOptionTypes.SUB_COMMAND && option.type !== ApplicationCommandOptionTypes.SUB_COMMAND_GROUP);
                 const args = filtered.map(option => option.value);
+                const argumentos = ctx.args;
                 for (const option of data) {
                     if (option.type === ApplicationCommandOptionTypes.STRING) {
                         const arg = args.shift();
-                        if (!arg) return ctx.reply(`:x: ${message.author.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
+                        if (!arg) return ctx.reply(`:x: ${interaction.user.mention} **|** O argumento \`${option.name}\` é obrigatório.`)
                         argumentos.push(arg.toString());
                     }
                 }
