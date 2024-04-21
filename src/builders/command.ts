@@ -1,5 +1,3 @@
-
-
 interface CommandOptionChoice {
     name: string;
     value: string | number;
@@ -21,6 +19,7 @@ interface CommandOptions {
   nsfw?: boolean;
   developer?: boolean;
   enabled?: boolean;
+  category: 'moderation' | 'fun' | 'nsfw' | 'utility' | 'developer' | 'info' | 'bot';
   run: (...args: any) => void;
 }
 
@@ -32,6 +31,7 @@ export default class CommandBuilder implements CommandOptions {
     nsfw?: boolean;
     developer?: boolean;
     enabled?: boolean;
+    category: 'moderation' | 'fun' | 'nsfw' | 'utility' | 'developer' | 'info' | 'bot';
     run: (...args: any) => void;
 
     constructor(data: CommandOptions) {
@@ -42,6 +42,7 @@ export default class CommandBuilder implements CommandOptions {
         this.nsfw = data.nsfw
         this.developer = data.developer
         this.enabled = data.enabled
+        this.category = data.category
         this.run = data.run
     }
 

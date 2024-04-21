@@ -16,6 +16,7 @@ export default new CommandBuilder({
         }
     ],
     developer: true,
+    category: 'developer',
     run: async (ctx: CommandContext) => {
         const createBlockCode = (code: string, lang: string) => {
             return `\`\`\`${lang}\n${code}\`\`\``

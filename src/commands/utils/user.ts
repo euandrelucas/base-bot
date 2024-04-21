@@ -6,6 +6,7 @@ export default new CommandBuilder({
     description: "Comando para ver informações de um usuário",
     aliases: ["userinfo", "whois"],
     enabled: true,
+    category: 'info',
     options: [
         {
             name: "user",

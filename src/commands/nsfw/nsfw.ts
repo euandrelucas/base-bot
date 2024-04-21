@@ -6,6 +6,7 @@ export default new CommandBuilder({
     aliases: ["+18", "proibido"],
     nsfw: true,
     enabled: true,
+    category: 'nsfw',
     run: async (ctx: CommandContext) => {
         const embed = new ctx.client.embed();
         embed.setTitle('NSFW')

@@ -1,12 +1,12 @@
-import CommandBuilder from "../builders/command.js";
-import CommandContext from "../structures/commandContext.js";
+import CommandBuilder from "../../builders/command.js";
+import CommandContext from "../../structures/commandContext.js";
 import { ApplicationCommandOptionTypes } from "oceanic.js";
 export default new CommandBuilder({
     name: "ping",
     description: "Ping command",
     aliases: ["pong"],
     enabled: true,
-    options: [],
+    category: 'bot',
     run: async (ctx: CommandContext) => {
         const embed = new ctx.client.embed();
         embed.setTitle("Pong!")

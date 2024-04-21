@@ -68,6 +68,41 @@ export default new EventBuilder({
                     argumentos.push(role);
                 }
             }
+            const naoRequeridos = options.filter(option => option.required === false);
+            for (const option of naoRequeridos) {
+                if (option.type === ApplicationCommandOptionTypes.STRING) {
+                    if (naoRequeridos.length === 1) {
+                        const arg = args.join(" ");
+                        if (!arg) argumentos.push(null);
+                        argumentos.push(arg);
+                    }
+                    if (naoRequeridos.length > 1) {
+                        const current = args.find(arg => arg === option.name);
+                        if (!current) argumentos.push(null);
+                        argumentos.push(current);
+                    }
+                }
+                if (option.type === ApplicationCommandOptionTypes.USER) {
+                    const user = message.mentions.users[0] || await client.users.get(args.shift() as string);
+                    if (!user) argumentos.push(null);
+                    argumentos.push(user);
+                }
+                if (option.type === ApplicationCommandOptionTypes.INTEGER) {
+                    const arg = parseInt(args.shift() as string);
+                    if (!arg) argumentos.push(null);
+                    argumentos.push(arg.toString());
+                }
+                if (option.type === ApplicationCommandOptionTypes.CHANNEL) {
+                    const channel = message.mentions.channels[0] || await client.getChannel(args.shift() as string);
+                    if (!channel) argumentos.push(null);
+                    argumentos.push(channel);
+                }
+                if (option.type === ApplicationCommandOptionTypes.ROLE) {
+                    const role = message.mentions.roles[0] || await client.guilds.get(message.guildID as string)?.roles.get(args.shift() as string);
+                    if (!role) argumentos.push(null);
+                    argumentos.push(role);
+                }
+            }
             ctx.args = argumentos as any;
         }
         client.metrics.messageCommandsExecuted++;

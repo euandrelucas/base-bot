@@ -15,7 +15,51 @@ export default {
       },
       prefixCommands: {
          enabled: true
-      }
+      },
+      categories: [
+         {
+            name: 'fun',
+            emoji: '🎉',
+            label: 'Diversão',
+            description: 'Comandos divertidos'
+         },
+         {
+            name: 'bot',
+            emoji: '🤖',
+            label: 'Bot',
+            description: 'Comandos para o bot'
+         },
+         {
+            name: 'nsfw',
+            emoji: '🔞',
+            label: 'NSFW',
+            description: 'Comandos NSFW'
+         },
+         {
+            name: 'developer',
+            emoji: '🛠️',
+            label: 'Desenvolvedor',
+            description: 'Comandos para desenvolvedores'
+         },
+         {
+            name: 'utility',
+            emoji: '🔧',
+            label: 'Utilidade',
+            description: 'Comandos de utilidade'
+         },
+         {
+            name: 'moderation',
+            emoji: '🔨',
+            label: 'Moderação',
+            description: 'Comandos de moderação'
+         },
+         {
+            name: 'info',
+            emoji: '📰',
+            label: 'Informações',
+            description: 'Comandos de informações'
+         }
+      ]
    },
    database: {
       enabled: false,

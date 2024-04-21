@@ -102,4 +102,8 @@ export default class ClientBuilder extends Client {
     async post(url: string, data: any, options?: AxiosRequestConfig) {
         return post(url, data, options)
     }
+
+    async getAllCommands() {
+        return this.commands as Collection<string, CommandBuilder>
+    }
 }

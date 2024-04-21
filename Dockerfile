@@ -12,6 +12,7 @@ RUN bun install
 
 # Bundle app source
 COPY . .
+RUN bun build
 
 # Start the app
 CMD [ "bun", "run", "src/index.ts" ]

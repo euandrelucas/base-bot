@@ -53,6 +53,34 @@ export default new EventBuilder({
                         argumentos.push(role);
                     }
                 }
+                const notRequired = command.options.filter(option => option.required === false);
+                for (const option of notRequired) {
+                    const current = data.find((optionData: any) => optionData.name === option.name);
+                    if (!current) continue;
+                    if (current.type === ApplicationCommandOptionTypes.STRING) {
+                        if (!current.value) continue;
+                        argumentos.push(current.value);
+                    }
+                    if (current.type === ApplicationCommandOptionTypes.USER) {
+                        const user = await client.users.get(current.value as string);
+                        if (!user) continue;
+                        argumentos.push(user);
+                    }
+                    if (current.type === ApplicationCommandOptionTypes.INTEGER) {
+                        if (!current.value) continue;
+                        argumentos.push(current.value);
+                    }
+                    if (current.type === ApplicationCommandOptionTypes.CHANNEL) {
+                        const channel = await client.getChannel(current.value as string);
+                        if (!channel) continue;
+                        argumentos.push(channel);
+                    }
+                    if (current.type === ApplicationCommandOptionTypes.ROLE) {
+                        const role = await client.guilds.get(interaction.guildID as string)?.roles.get(current.value as string);
+                        if (!role) continue;
+                        argumentos.push(role);
+                    }
+                }
                 ctx.args = argumentos as any;
             }
             client.metrics.interactionCommandsExecuted++;
