@@ -13,7 +13,7 @@
 > [X] Embed Builder
 > [X] Command Builder
 > [X] Event Builder
-> [ ] Component Builder~
+> [ ] Component Builder
 
 [ ] Utils
 > [X] Botlist UPDATER

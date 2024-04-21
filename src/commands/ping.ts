@@ -19,7 +19,7 @@ export default new CommandBuilder({
             if (msg !== undefined) {
                 const messageLatency = msg.createdAt.getTime() - ctx.message.createdAt.getTime();
                 const apiLatency = ctx.client.shards.get(0)?.latency;
-                embed.setDescription(`Ping da API: **${apiLatency}ms**\nPing de mensagem: **${messageLatency}ms**\nUso de RAM: **${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}MB**`)
+                embed.setDescription(`Ping da API: **${apiLatency}ms**\nPing de mensagem: **${messageLatency}ms**\nUso de RAM: **${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)}MB**`)
                 return ctx.edit(msg, '', {
                     embeds: [embed.build()]
                 })
