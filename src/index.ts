@@ -11,6 +11,7 @@ const client = new ClientBuilder(config.client.token, {
     },
     gateway: {
         intents: ['ALL'],
+        compress: true
     },
 });
 
