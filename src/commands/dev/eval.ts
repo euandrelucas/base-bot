@@ -28,7 +28,7 @@ export default new CommandBuilder({
             if (evaled === null) evaled = "null";
             if (evaled === undefined) evaled = "undefined";
             if (typeof evaled !== "string") evaled = inspect(evaled);
-            if (evaled.length > 2000 && evaled.length < 6000) {
+            if (evaled.length > 1000 && evaled.length < 6000) {
                 const splitted = evaled.match(/[\s\S]{1,1000}/g);
                 const embed = new ctx.client.embed();
                 embed.setTitle("Eval")

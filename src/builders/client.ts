@@ -6,8 +6,7 @@ import EmbedBuilder from "./embed.js"
 import config from "../config.js"
 import path from "node:path"
 import fs from "node:fs"
-import { error } from "winston"
-
+import didyoumean from "didyoumean"
 const { get, post } = axios;
 
 export default class ClientBuilder extends Client {
@@ -92,7 +91,16 @@ export default class ClientBuilder extends Client {
     }
 
     async searchCommand(name: string) {
-        return this.commands.get(name) as CommandBuilder || this.commands.get(this.aliases.get(name)) as CommandBuilder
+        const command = this.commands.get(name) as CommandBuilder || this.commands.get(this.aliases.get(name)) as CommandBuilder
+        if (!command) {
+            const commands = this.commands.map((command: any) => command.name);
+            const suggestion = didyoumean(name, commands)
+            if (suggestion) {
+                return this.commands.get(suggestion) as CommandBuilder
+            }
+        } else {
+            return command
+        }
     }
 
     async get(url: string, options?: AxiosRequestConfig) {
