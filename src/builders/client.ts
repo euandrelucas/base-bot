@@ -97,8 +97,14 @@ export default class ClientBuilder extends Client {
             const suggestion = didyoumean(name, commands)
             if (suggestion) {
                 return this.commands.get(suggestion) as CommandBuilder
+            } else if (!suggestion) {
+                const aliases = this.commands.map((command: any) => command.aliases).flat();
+                const aliasSuggestion = didyoumean(name, aliases)
+                if (aliasSuggestion) {
+                    return this.commands.find((command: any) => command.aliases.includes(aliasSuggestion)) as CommandBuilder
+                }
             }
-        } else {
+        } else if (command) {
             return command
         }
     }
