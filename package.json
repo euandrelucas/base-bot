@@ -19,6 +19,7 @@
   "author": "euandrelucas",
   "license": "ISC",
   "dependencies": {
+    "@oceanicjs/builders": "^1.1.9",
     "axios": "^1.6.8",
     "didyoumean": "^1.2.2",
     "discord-api-types": "^0.37.61",

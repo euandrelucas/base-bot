@@ -1,11 +1,15 @@
+import { Templates } from './templates/index.js'
+
 export default {
+   messages: Templates.messages,
    client: {
       id: process.env.ID as string,
       secret: process.env.SECRET as string,
       token: process.env.TOKEN as string,
       bypassNsfw: ['717766639260532826'] as string[],
       developers: ['717766639260532826'] as string[],
-      guilds: ['993194961895956521'] as string[]
+      guilds: ['993194961895956521'] as string[],
+      mention: true as boolean,
    },
    commands: {
       prefixes: ['!', '?', '%'],
