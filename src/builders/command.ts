@@ -20,6 +20,7 @@ interface CommandOptions {
   developer?: boolean;
   enabled?: boolean;
   category: 'moderation' | 'fun' | 'nsfw' | 'utility' | 'developer' | 'info' | 'bot';
+  cooldown?: number;
   run: (...args: any) => void;
 }
 
@@ -32,6 +33,7 @@ export default class CommandBuilder implements CommandOptions {
     developer?: boolean;
     enabled?: boolean;
     category: 'moderation' | 'fun' | 'nsfw' | 'utility' | 'developer' | 'info' | 'bot';
+    cooldown?: number;
     run: (...args: any) => void;
 
     constructor(data: CommandOptions) {
@@ -43,9 +45,9 @@ export default class CommandBuilder implements CommandOptions {
         this.developer = data.developer
         this.enabled = data.enabled
         this.category = data.category
+        this.cooldown = data.cooldown
         this.run = data.run
     }
-
     toJSON() {
         return {
             name: this.name,

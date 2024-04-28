@@ -17,6 +17,22 @@ export default new EventBuilder({
                 client: client,
                 args: []
             })
+            if (command.cooldown) {
+                const currentCooldown = await client.database.cooldown.getCooldown(interaction.user.id, command.name);
+                if (currentCooldown) {
+                    const cooldownMileseconds = Number(currentCooldown.expiresAt)
+                    const nowMileseconds = Date.now()
+                    const time = cooldownMileseconds - nowMileseconds
+                    const unixTime = Math.ceil(cooldownMileseconds / 1000)
+                    if (time > 0) return ctx.reply(`:x: ${interaction.user.mention} **|** Você está em cooldown. Tente novamente em <t:${unixTime}:R>.`)
+                    if (time < 0) {
+                        await client.database.cooldown.deleteCooldown(interaction.user.id, command.name)
+                        await client.database.cooldown.createCooldown(interaction.user.id, command.name, command.cooldown)
+                    }
+                } else {
+                    await client.database.cooldown.createCooldown(interaction.user.id, command.name, command.cooldown)
+                }
+            }
             if (!command.enabled) return ctx.reply(`:x: ${interaction.user.mention} **|** Este comando está desativado.`)
             if (command.developer && !client.config.client.developers.includes(interaction.user.id)) return ctx.reply(`:x: ${interaction.user.mention} **|** Este comando é restrito para desenvolvedores.`)
             if (command.nsfw && !interaction.channel?.type && !ctx.client.config.client.bypassNsfw.includes(interaction.user.id)) return ctx.reply(`:x: ${interaction.user.mention} **|** Este comando só pode ser executado em canais NSFW.`)
