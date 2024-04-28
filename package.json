@@ -33,7 +33,7 @@
     "undici-types": "^5.26.5",
     "vulkava": "^1.6.3",
     "winston": "^3.12.0",
-    "ws": "^8.16.0",
+    "ws": "^8.17.0",
     "zlib-sync": "^0.1.9"
   },
   "devDependencies": {
