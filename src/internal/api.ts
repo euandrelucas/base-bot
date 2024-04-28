@@ -1,5 +1,4 @@
 import ClientBuilder from '../builders/client.js'
-import CommandBuilder from '../builders/command.js';
 import config from '../config.js'
 import Fastify from 'fastify'
 

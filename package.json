@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@oceanicjs/builders": "^1.1.9",
+    "@prisma/client": "5.13.0",
     "axios": "^1.6.8",
     "didyoumean": "^1.2.2",
     "discord-api-types": "^0.37.61",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@types/didyoumean": "^1.2.2",
     "eslint": "^8.57.0",
+    "prisma": "5.13.0",
     "typescript-eslint": "^7.3.1"
   }
 }

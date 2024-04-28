@@ -8,6 +8,8 @@ import path from "node:path"
 import fs from "node:fs"
 import didyoumean from "didyoumean"
 const { get, post } = axios;
+import { PrismaClient } from '@prisma/client'
+import Database from "../internal/database/index.js"
 
 export default class ClientBuilder extends Client {
     commands = new Collection()
@@ -26,6 +28,8 @@ export default class ClientBuilder extends Client {
         interactionsReceived: 0,
         errors: 0
     }
+    prisma = new PrismaClient()
+    database = new Database(this)
 
     constructor(token: string, options?: ClientOptions) {
         super({

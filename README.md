@@ -14,12 +14,12 @@ Esta é uma base de desenvolvimento para bots, construída utilizando o oceanic.
   - [X] Embed Builder
   - [X] Command Builder
   - [X] Event Builder
-  - [ ] Component Builder
+  - [X] Component Builder
 - [ ] Utils
   - [X] Botlist UPDATER
   - [X] Collectors
   - [ ] Multi-idioma
-  - [ ] Banco de Dados (preferencialmente ORM)
+  - [X] Banco de Dados (preferencialmente ORM)
 
 Este bot utiliza oceanic.js como wrapper e bun no lugar do node. Certifique-se de cumprir os requisitos e completar as tarefas listadas para garantir que o bot funcione corretamente.
 

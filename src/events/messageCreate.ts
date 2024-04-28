@@ -106,6 +106,9 @@ export default new EventBuilder({
             ctx.args = argumentos as any;
         }
         client.metrics.messageCommandsExecuted++;
+        const userDb = await client.database.user.getUser(message.author.id);
+        if (!userDb) await client.database.user.createUser({ id: message.author.id, commands: 1 });
+        else await client.database.user.addCommand(message.author.id);
         return command.run(ctx)
     }
 })

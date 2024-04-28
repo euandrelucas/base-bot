@@ -84,6 +84,9 @@ export default new EventBuilder({
                 ctx.args = argumentos as any;
             }
             client.metrics.interactionCommandsExecuted++;
+            const userDb = await client.database.user.getUser(interaction.user.id);
+            if (!userDb) await client.database.user.createUser({ id: interaction.user.id, commands: 1 });
+            else await client.database.user.addCommand(interaction.user.id);
             return command.run(ctx)
         }
     }

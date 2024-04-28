@@ -12,13 +12,13 @@ export default {
       mention: true as boolean,
    },
    commands: {
-      prefixes: ['!', '?', '%'],
-      failMessage: false,
+      prefixes: ['!', '?', '%'] as string[],
+      failMessage: false as boolean,
       slashCommands: {
-         enabled: true
+         enabled: true as boolean,
       },
       prefixCommands: {
-         enabled: true
+         enabled: true as boolean,
       },
       categories: [
          {
@@ -65,25 +65,15 @@ export default {
          }
       ]
    },
-   database: {
-      enabled: false,
-      type: 'mongodb' as 'mongodb' | 'sqlite' | 'mysql' | 'postgres',
-      uri: 'mongodb://localhost:27017',
-      database: 'oceanic',
-      options: {
-         useNewUrlParser: true,
-         useUnifiedTopology: true
-      }
-   },
    botlists: {
-      enabled: true as boolean,
+      enabled: false as boolean,
       topgg: {
-         enabled: true,
+         enabled: false,
          token: process.env.TOPGG as string
       }
    },
    metrics: {
-      enabled: true as boolean,
+      enabled: false as boolean,
       port: 3000 as number
    }
 }
