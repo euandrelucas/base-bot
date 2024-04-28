@@ -23,7 +23,7 @@
     "@prisma/client": "5.13.0",
     "axios": "^1.6.8",
     "didyoumean": "^1.2.2",
-    "discord-api-types": "^0.37.61",
+    "discord-api-types": "^0.37.83",
     "fastify": "^4.26.2",
     "oceanic.js": "^1.10.0",
     "pako": "^2.1.0",
