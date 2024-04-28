@@ -40,3 +40,6 @@ Os builders são utilitários para construir estruturas complexas de forma simpl
 Os utilitários são ferramentas auxiliares que facilitam o desenvolvimento e a manutenção do bot, como atualizadores de botlist, coletores de informações e suporte a múltiplos idiomas.
 
 Lembre-se de manter esta base atualizada e expandi-la conforme necessário para atender às demandas do seu bot. Boa sorte com o desenvolvimento!
+
+[![Stargazers](https://reporoster.com/stars/euandrelucas/base-bot)](https://github.com/euandrelucas/base-bot/stargazers)
+[![Forkers](https://reporoster.com/forks/euandrelucas/base-bot)](https://github.com/euandrelucas/base-bot/network/members)
