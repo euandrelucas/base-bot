@@ -40,6 +40,6 @@
     "@types/didyoumean": "^1.2.2",
     "eslint": "^8.57.0",
     "prisma": "5.13.0",
-    "typescript-eslint": "^7.3.1"
+    "typescript-eslint": "^7.12.0"
   }
 }
